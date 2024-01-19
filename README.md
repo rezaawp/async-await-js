@@ -53,3 +53,11 @@ displayUser(user)
 - Dari contoh kode diatas besar kemungkinan displayUser menampilkan data kosong, karena belum tentu output dari ekskusi requestAjax sudah selesai.
 
 - [pertanyaan](https://telegra.ph/pertanyaan-1-01-19)
+
+# Pembahasan 2 (AJAX)
+![diagram ajax](https://qph.cf2.quoracdn.net/main-qimg-aec92b9065dfc46a8ccc43bc35ce2816-lq)
+- Intinya AJAX itu seperti cara untuk pengambilan data dari client ke server tanpa mengubah fungsi lainnya, khususnya fungsi tampilan client/user.
+- Jadi ketika anda perlu data baru tetapi tampilan web yang sama, maka dengan memakai ajax anda bisa menghemat data karena tidak memerlukan mengambil data tampilan lagi secara berulang-ulang.
+- Contohnya seperti yang biasa digunakan pada kolom pencarian website,
+![searching ajax](https://qph.cf2.quoracdn.net/main-qimg-f1e57b8f3069313f6754cbab16c38c69)
+- Kalau didibaratkan sih metode pengambilan data memakai ajax itu ibarat asisten kerja, misalnya anda sedang bekerja lalu ingin membuat kopi, maka anda harus berhenti bekerja dahulu, jalan ke dapur dan membuat kopi lalu kembali lagi dan melanjutkan bekerja, sedangkan jika menggunakan asisten yang ibarat ajax, anda tinggal menyuruh asisten untuk membuatkan kopi sedangkan anda masih dapat bekerja tanpa diganggu.
