@@ -61,3 +61,40 @@ displayUser(user)
 - Contohnya seperti yang biasa digunakan pada kolom pencarian website,
 ![searching ajax](https://qph.cf2.quoracdn.net/main-qimg-f1e57b8f3069313f6754cbab16c38c69)
 - Kalau didibaratkan sih metode pengambilan data memakai ajax itu ibarat asisten kerja, misalnya anda sedang bekerja lalu ingin membuat kopi, maka anda harus berhenti bekerja dahulu, jalan ke dapur dan membuat kopi lalu kembali lagi dan melanjutkan bekerja, sedangkan jika menggunakan asisten yang ibarat ajax, anda tinggal menyuruh asisten untuk membuatkan kopi sedangkan anda masih dapat bekerja tanpa diganggu.
+
+# Pembahasan 3 (Callback)
+- Callback sebenarnya adalah function bedanya dengan function pada umumnya adalah di cara eksekusinya. Jika function pada umumnya di eksekusi berurutan dari atas ke bawah maka callback di eksekusi pada point tertentu, itu sebabnya di sebut callback.
+- Callback disebut juga dengan high-order function. Callback sebenarnya adalah function, bedanya dengan function pada umumnya adalah di cara eksekusinya. Jika function pada umumnya di eksekusi secara langsung sedangkan callback di eksekusi dalam function lain melalui parameter.
+- Contoh :
+```javascript
+
+function main(param1,param2,callBack){ 
+  console.log(param1, param2) 
+  callBack()  
+}
+
+function myCallback(){ 
+  console.log ('hello callback')
+}
+
+main(1,2,myCallback)
+
+/* ===================
+Output :
+ 1 2
+ hello callback
+ */
+```
+
+## Kenapa function bisa di jadikan sebagai parameter ?
+- Function dalam javascript adalah object atau sering disebut first-class object, yang artinya :
+- Function bisa di jadikan parameter
+- Function dapat disimpan ke dalam variabel
+- Seperti object pada umumnya, function bisa memiliki property dan method
+- Function dapat mengembalikan value dalam bentuk function
+
+## Kapan Callback digunakan ?
+- Callback dapat digunakan untuk proses synchronous maupun asynchronous. Beberapa contoh implementasi callback adalah :
+- Injeksi atau modifikasi hasil eksekusi sebuah function
+- Event listener
+- Menangani proses asynchronous
