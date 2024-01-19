@@ -229,3 +229,46 @@ function p3() {
 p1()
 p2(p3)
 ```
+
+## AJAX dan Callback
+- Callback pada asynchronous seperti delegasi tugas. Seperti pada contoh sebelumnya maka untuk mengelola komunikasi dengan ajax kita memerlukan callback
+- Problem :
+```javascript
+data=requestAjax() // asynchronous process
+showResult(data) //undefined
+```
+- Solusi :
+- Solusinya adalah dengan membuat function showResult menjadi callback bagi function requestAjax
+```javascript
+function requestAjax(callback){
+
+  // inisialisasi library XML Http Request
+  var xhr = new XMLHttpRequest();
+
+  // set target request
+  xhr.open('GET','https://jsonplaceholder.typicode.com/users/1')
+
+  // terapkan callback
+  xhr.onload = function(){
+    if(xhr.status === 200){
+      callback(xhr.responseText)
+    }else{
+      callback('Failed')
+    }
+  }
+
+  // mulai request
+  xhr.send()
+  
+}
+
+function showResult(data){
+  if (data != 'Failed'){
+    //tampilkan Data
+    data=JSON.parse(data)
+    console.log(data)
+  }
+}
+
+requestAjax(showResult)
+```
