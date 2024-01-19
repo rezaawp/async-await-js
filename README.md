@@ -88,13 +88,144 @@ Output :
 
 ## Kenapa function bisa di jadikan sebagai parameter ?
 - Function dalam javascript adalah object atau sering disebut first-class object, yang artinya :
-- Function bisa di jadikan parameter
-- Function dapat disimpan ke dalam variabel
-- Seperti object pada umumnya, function bisa memiliki property dan method
-- Function dapat mengembalikan value dalam bentuk function
+  - Function bisa di jadikan parameter
+  - Function dapat disimpan ke dalam variabel
+  - Seperti object pada umumnya, function bisa memiliki property dan method
+  - Function dapat mengembalikan value dalam bentuk function
 
 ## Kapan Callback digunakan ?
 - Callback dapat digunakan untuk proses synchronous maupun asynchronous. Beberapa contoh implementasi callback adalah :
-- Injeksi atau modifikasi hasil eksekusi sebuah function
-- Event listener
-- Menangani proses asynchronous
+  - Injeksi atau modifikasi hasil eksekusi sebuah function
+  - Event listener
+  - Menangani proses asynchronous
+
+### Callback sebagai injeksi
+```javascript
+function calculate(x,y){
+  result = x + y
+  return result
+}
+calculate(3,2) // 5
+```
+- Kode diatas cukup sederhana yaitu untuk melakukan operasi penjumlahan. Berikut tantangannya :
+  - Buatlah function diatas agar bisa melakukan operasi matematika yg lain seperti kurang, bagi, kali dan lain sebagainya.
+  - Output dari function di atas harus bisa di format ke dalam mata uang
+- Dengan cara umum kita bisa menyelesaikanya dengan bantuan if atau switch untuk menguji operatornya. Tapi ini akan membuat code lebih panjang dan kurang dinamis. Dengan callback kita dapat membuat function diatas menjadi lebih dinamis
+```javascript
+function calculate(param1,param2,callback){
+  //default operation
+  result = param1 + param2
+  
+  // callback is function ?
+  if (typeof callback == 'function'){
+   result= callback(param1,param2)
+  }
+  
+  return result
+}
+
+//execute
+a=calculate(2000,4000, function(x,y){return "$ " + (x + y) }) 
+b=calculate(7000,2000, function(x,y){return "Rp " + (x * y) }) 
+console.log(a) // $ 6000
+console.log(b) // Rp 14000
+```
+
+### Callback sebagai Event Listener 
+- Event Listener adalah function yang di eksekusi karena suatu event contoh ketika berinteraksi dengan DOM seperti event click, focus, keydown,keypress dan lain sebagainya.
+
+- Contoh pada Native Javascript
+```javascript
+document.getElementById("my_button").addEventListener("click",function(){
+   alert('Ouhh aku di klik!') 
+})
+```
+
+- Contoh ketika menggunakan jquery
+```javascript
+$('#my_button').on('click', function(e) {
+  console.log('Ouhh aku di klik!');
+})
+```
+
+### Callback Pada Asynchronous
+- Proses asynchronous identik dengan delay, dimana hasil dari proses tersebut membutuhkan selang waktu tertentu untuk menghasilkan output. Kita akan menemukan proses asynchronous pada proses Ajax, komunikasi HTTP, Operasi file, timer, dsb.
+- Pada synchronous output di prosess berdasarkan urutan kode.
+```javascript
+function p1() {
+  console.log('p1 done')
+}
+function p2() {
+  console.log('p2 done')
+}
+function p3() {
+  console.log('p3 done')
+}
+p1()
+p2()
+p3()
+
+/* Output :
+p1 done
+p2 done
+p3 done
+*/
+```
+- Tetapi pada proses asynchronous output dari kode yang tuliskan tidak selalu berurutan. Hasilnya tergantung yang mana yang lebih dulu selesai. Perhatikan contoh berikut :
+```javascript
+function p1() {
+  console.log('p1 done')
+}
+function p2() {
+  //setTimeout or delay for asynchronous simulation 
+  setTimeout(
+      function() {
+        console.log('p2 done')
+      },100
+  )
+}
+function p3() {
+  console.log('p3 done')
+}
+p1()
+p2()
+p3()
+
+/* Output :
+p1 done
+p3 done
+p2 done
+*/
+```
+
+- Catatan : setTimeout digunakan untuk simulasi asynchronous. Karena sebenarnya kita tidak bisa membuat proses asynchronous murni.
+- Perhatikan output dari kode diatas tidak lagi berurutan. Kerena javascript mengerjakan mana yang lebih dulu selesai. Mungkin pada contoh diatas tidak terlalu masalah tapi pada kasus tertentu ini menjadi problem, Contohnya kita ingin menampilkan data yang harus di request terlebih dahulu dengan proses ajax.
+
+```javascript
+data=requestAjax() // asynchronous process
+showResult(data) //undefined
+```
+- Kemungkinan besar hasilnya undefined. Karena belum tentu data sudah tersedia ketika function showResult( ) di eksekusi. Teknik callback dapat kita gunakan untuk problem ini.
+- Baik sebelum membahas ajax lebih , kita akan coba memperbaiki challange asynchronus di atas dengan memastikan output p1,p2,p3 sesuai urutan.
+- Solusinya adalah dengan membuat p3 menjadi callback bagi p2.
+
+```javascript
+function p1() {
+ console.log('p1 done')
+}
+
+function p2(callback) {
+ setTimeout(
+  function() {
+   console.log('p2 done')
+    callback()
+  },100
+  )
+}
+
+function p3() {
+  console.log('p3 done')
+}
+p1()
+p2(p3)
+```
