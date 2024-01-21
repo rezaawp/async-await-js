@@ -272,3 +272,26 @@ function showResult(data){
 
 requestAjax(showResult)
 ```
+
+# Promise 
+- Promise adalah salah fitur terbaru dari ES6. Jika anda sebelumnya sudah pernah menggunakan .then maka anda sudah menggunakan promise. Mari kita mulai dari analogi sederhana. Anda janjian ketemuan dengan salah satu kolega anda, tiba-tiba kolega tersebut bertanya anda sudah dimana ? Ada beberapa kemungkinan jawaban disini : dalam perjalanan, sudah sampai atau janjinya di batalkan.
+- Dalam dunia promise analogi di atas juga sama, ketika melakukan request asynchronous seperti Ajax, maka ada 3 kemungkinan state :
+  - Pending ( sedang dalam proses )
+  - Fulfilled ( berhasil )
+  - Rejected ( gagal )
+- Bagaimana implementasinya dalam javascript ? Untuk sekarang ingat saja bahwa promise itu adalah object. Object yang merepresentasikan state diatas.
+  
+## Callback vs Promise
+- Promise umumnya digunakan sebagai alternative callback. Salah satu tantangan di callback adalah callback hell. Disebut neraka ketika ada callback didalam callback didalam callback lagi dan di dalam callback lagi. Problemnya adalah kode sulit dibaca dan penanganan error nya juga menjadi sulit. Disaat seperti ini maka promise menjadi solusi.
+- Beberapa hal penting perbedaan callback dan promise adalah :
+  - Callback adalah function sedangkan promise adalah object.
+  - Callback di kirim melalui parameter, sedangkan promise mengembalikan object
+  - Callback digunakan untuk menghandle succes dan failure,sedangkan promise tidak
+  - Callback dapat digunakan untuk beberapa event sekaligus, sedangkan promise hanya untuk satu event
+
+##  Membuat & Menggunakan Promise
+- State promise ada Pending, Fulfilled, Reject.
+![image](https://miro.medium.com/v2/resize:fit:640/format:webp/0*-Jok-C_yIXm3xb_t.png)
+
+- Untuk membuat promise cukup dengan memanggil class nya :
+![state promise](https://miro.medium.com/v2/resize:fit:640/format:webp/1*j-gvM8WbQyswcJj_ZI28RA.png)
